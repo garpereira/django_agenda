@@ -13,7 +13,7 @@ class ContactAdmin(admin.ModelAdmin):
         "email",
         "created_date",
     )
-    ordering = ("-id",)
+    ordering = ("id",)
     list_filter = ("created_date",)
     search_fields = (
         "id",

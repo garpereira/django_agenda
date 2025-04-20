@@ -12,6 +12,7 @@ class ContactAdmin(admin.ModelAdmin):
         "phone",
         "email",
         "created_date",
+        "show",
     )
     ordering = ("id",)
     list_filter = ("created_date",)
@@ -25,6 +26,7 @@ class ContactAdmin(admin.ModelAdmin):
     list_editable = (
         "first_name",
         "last_name",
+        "show",
     )
     list_display_links = (
         "id",

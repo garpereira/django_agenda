@@ -5,20 +5,24 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('contact', '0002_category_contact_picture_contact_show'),
+        ("contact", "0002_category_contact_picture_contact_show"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='category',
-            name='name',
-            field=models.CharField(default='', max_length=50),
+            model_name="category",
+            name="name",
+            field=models.CharField(default="", max_length=50),
         ),
         migrations.AddField(
-            model_name='contact',
-            name='cateogry',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='contact.category'),
+            model_name="contact",
+            name="cateogry",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                to="contact.category",
+            ),
         ),
     ]

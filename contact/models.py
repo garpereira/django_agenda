@@ -3,14 +3,14 @@ from django.contrib.auth.models import User
 
 
 class Category(models.Model):
-    name = models.CharField(max_length=50, default='')
+    name = models.CharField(max_length=50, default="")
 
     def __str__(self):
         return f"{self.name}"
-    
+
     class Meta:
-        verbose_name = 'Category'
-        verbose_name_plural = 'Categories'
+        verbose_name = "Category"
+        verbose_name_plural = "Categories"
 
 
 # Create your models here.
@@ -22,13 +22,15 @@ class Contact(models.Model):
     created_date = models.DateTimeField(auto_now_add=True)
     description = models.TextField(blank=True)
     show = models.BooleanField(default=True)
-    picture = models.ImageField(blank=True, upload_to='pictures/%Y/%m/')
-    cateogry = models.ForeignKey(Category, on_delete=models.SET_NULL, blank=True, null=True)
+    picture = models.ImageField(blank=True, upload_to="pictures/%Y/%m/")
+    cateogry = models.ForeignKey(
+        Category, on_delete=models.SET_NULL, blank=True, null=True
+    )
     owner = models.ForeignKey(User, on_delete=models.SET_NULL, blank=True, null=True)
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
-    
+
     class Meta:
-        verbose_name = 'Contact'
-        verbose_name_plural = 'Contacts'
+        verbose_name = "Contact"
+        verbose_name_plural = "Contacts"

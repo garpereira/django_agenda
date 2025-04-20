@@ -6,24 +6,28 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('contact', '0003_category_name_contact_cateogry'),
+        ("contact", "0003_category_name_contact_cateogry"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='category',
-            options={'verbose_name': 'Category', 'verbose_name_plural': 'Categories'},
+            name="category",
+            options={"verbose_name": "Category", "verbose_name_plural": "Categories"},
         ),
         migrations.AlterModelOptions(
-            name='contact',
-            options={'verbose_name': 'Contact', 'verbose_name_plural': 'Contacts'},
+            name="contact",
+            options={"verbose_name": "Contact", "verbose_name_plural": "Contacts"},
         ),
         migrations.AddField(
-            model_name='contact',
-            name='owner',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to=settings.AUTH_USER_MODEL),
+            model_name="contact",
+            name="owner",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
     ]

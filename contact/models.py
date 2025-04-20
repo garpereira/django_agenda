@@ -2,7 +2,10 @@ from django.db import models
 
 
 class Category(models.Model):
-    None
+    name = models.CharField(max_length=50, default='')
+
+    def __str__(self):
+        return f"{self.name}"
 
 # Create your models here.
 class Contact(models.Model):
@@ -14,8 +17,8 @@ class Contact(models.Model):
     description = models.TextField(blank=True)
     show = models.BooleanField(default=True)
     picture = models.ImageField(blank=True, upload_to='pictures/%Y/%m/')
+    cateogry = models.ForeignKey(Category, on_delete=models.SET_NULL, blank=True, null=True)
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
-    
     

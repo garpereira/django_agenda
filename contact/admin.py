@@ -34,3 +34,10 @@ class ContactAdmin(admin.ModelAdmin):
         'id',
         'phone',
     )
+
+@admin.register(models.Category)
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = (
+        'id',
+        'name',
+    )

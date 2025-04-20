@@ -23,7 +23,7 @@ class Contact(models.Model):
     description = models.TextField(blank=True)
     show = models.BooleanField(default=True)
     picture = models.ImageField(blank=True, upload_to="pictures/%Y/%m/")
-    cateogry = models.ForeignKey(
+    category = models.ForeignKey(
         Category, on_delete=models.SET_NULL, blank=True, null=True
     )
     owner = models.ForeignKey(User, on_delete=models.SET_NULL, blank=True, null=True)

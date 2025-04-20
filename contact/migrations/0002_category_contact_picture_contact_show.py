@@ -4,26 +4,33 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('contact', '0001_initial'),
+        ("contact", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Category',
+            name="Category",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
             ],
         ),
         migrations.AddField(
-            model_name='contact',
-            name='picture',
-            field=models.ImageField(blank=True, upload_to='pictures/%Y/%m/'),
+            model_name="contact",
+            name="picture",
+            field=models.ImageField(blank=True, upload_to="pictures/%Y/%m/"),
         ),
         migrations.AddField(
-            model_name='contact',
-            name='show',
+            model_name="contact",
+            name="show",
             field=models.BooleanField(default=True),
         ),
     ]

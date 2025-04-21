@@ -14,7 +14,7 @@ class ContactAdmin(admin.ModelAdmin):
         "created_date",
         "show",
     )
-    ordering = ("id",)
+    ordering = ("-id",)
     list_filter = ("created_date",)
     search_fields = (
         "id",

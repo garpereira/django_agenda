@@ -5,7 +5,7 @@ from django.core.paginator import Paginator
 
 
 def index(request):
-    contacts = Contact.objects.filter(show=True)
+    contacts = Contact.objects.filter(show=True).order_by("-id")
     paginator = Paginator(contacts, 10) # Mostar 10 contatos por pagina
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
@@ -50,7 +50,7 @@ def search(request):
             Q(last_name__icontains=search_value) |
             Q(phone__icontains=search_value) |
             Q(email__icontains=search_value)
-        )
+        ).order_by("-id")
     paginator = Paginator(contacts, 10) # Mostar 10 contatos por pagina
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)

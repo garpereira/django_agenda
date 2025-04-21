@@ -9,7 +9,7 @@ def create(request):
 
 
     if request.method == 'POST':
-        form = ContactForm(request.POST)
+        form = ContactForm(request.POST, request.FILES)
         context = {
             'form': form,
             'form_action': form_action,
@@ -46,7 +46,7 @@ def update(request, contact_id):
     form_action = reverse('contact:update', args=(contact_id,))
 
     if request.method == 'POST':
-        form = ContactForm(request.POST, instance=contact)
+        form = ContactForm(request.POST, request.FILES, instance=contact)
         context = {
             'form': form,
             'form_action': form_action,
@@ -54,7 +54,6 @@ def update(request, contact_id):
         
         if form.is_valid():
             # contact = form.save(commit=False) # Segura o formulario aqui para fazer alterações antes de salvar
-            print("É valido sisi")
             contact = form.save()
             return redirect('contact:update', contact_id=contact.pk)
 
@@ -78,14 +77,24 @@ def update(request, contact_id):
 def delete(request, contact_id):
     contact = get_object_or_404(Contact, pk=contact_id, show=True)
 
-
-    confirmation = request.POST.get("confirmation", "no")
-    print("confirmation ", confirmation)
-    if confirmation == "yes":
-        contact.show = False
-        contact.save()
-        return redirect("contact:index")
-
+    if request.method == 'POST':
+        confirmation = request.POST.get("confirmation", "no")
+        
+        if confirmation == "yes":
+            contact.show = False
+            contact.save()
+            return redirect("contact:index")
+        
+        return render(
+            request,
+            "contact/contact.html",
+            # contexto
+            {
+                "contact": contact,
+                "confirmation": confirmation,
+            }
+        )
+    
     return render(
         request,
         "contact/contact.html",

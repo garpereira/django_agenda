@@ -41,6 +41,8 @@ class ContactForm(forms.ModelForm):
             'last_name',
             'phone',
             'email',
+            'description',
+            'category',
         )
         # widgets = { # Cria um novo widget
         #     'first_name': forms.TextInput( # mesmo do field

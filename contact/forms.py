@@ -1,6 +1,8 @@
 from . import models
 from django.core.exceptions import ValidationError
 from django import forms
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 
 class ContactForm(forms.ModelForm):
     picture = forms.ImageField(
@@ -62,3 +64,49 @@ class ContactForm(forms.ModelForm):
                 )
             )  
         return first_name
+    
+class RegisterForm(UserCreationForm):
+    first_name = forms.CharField(
+        label='Nome',
+        required=True,
+        min_length=3,
+    )
+
+    last_name = forms.CharField(
+        label='Sobrenome',
+        required=True,
+        min_length=3,
+    )
+
+    email = forms.EmailField(
+        required=True,
+    )
+    
+    class Meta:
+        model = User
+        fields = ( 
+            'first_name', 'last_name', 'email',
+            'username', 'password1', 'password2',
+        )
+    
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+
+        # if '@algumacoisa' not in email:
+        #     self.add_error(
+        #         'email',
+        #         ValidationError(
+        #             "Insira um email válido",
+        #             code='invalid',
+        #         )
+        #     )
+
+        if User.objects.filter(email=email).exists():
+            self.add_error(
+                'email',
+                ValidationError(
+                    "Um cadastro com esse email já existe.",
+                    code='invalid'),
+            )
+
+        return email

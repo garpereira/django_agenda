@@ -5,10 +5,13 @@ from django.core.paginator import Paginator
 
 
 def index(request):
-    contacts = Contact.objects.filter(show=True).order_by("-id")
-    paginator = Paginator(contacts, 10) # Mostar 10 contatos por pagina
-    page_number = request.GET.get("page")
-    page_obj = paginator.get_page(page_number)
+    page_obj = False
+
+    if request.user.pk: 
+        contacts = Contact.objects.filter(show=True).filter(owner=request.user).order_by("-id")
+        paginator = Paginator(contacts, 10) # Mostar 10 contatos por pagina
+        page_number = request.GET.get("page")
+        page_obj = paginator.get_page(page_number)
 
     context = {
         'page_obj': page_obj,
@@ -21,7 +24,7 @@ def index(request):
     )
 
 def contact(request, contact_id):
-    single_contact = get_object_or_404(Contact, pk=contact_id, show=True)
+    single_contact = get_object_or_404(Contact, pk=contact_id, show=True, owner=request.user)
     
     site_title = f"{single_contact.first_name} {single_contact.last_name} - "
 
@@ -44,6 +47,7 @@ def search(request):
 
     # LookUps
     contacts = Contact.objects\
+        .filter(owner=request.user)\
         .filter(show=True)\
         .filter(
             Q(first_name__icontains=search_value) |
